@@ -1,0 +1,9 @@
+controller\IdeiaController.class
+controller\LoginController.class
+model\Ideia.class
+controller\UsuarioController.class
+dao\Conexao.class
+dao\IdeiaDAO.class
+controller\VotacaoController.class
+dao\UsuarioDAO.class
+model\Usuario.class
