@@ -10,7 +10,17 @@
 <body>
 
 <div class="container">
-
+<button onclick="sessionStorage.clear(); localStorage.clear(); window.location.href='index.jsp';" style="
+    background-color: #dc3545; 
+    color: white; 
+    border: none;
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    font-family: sans-serif;
+    cursor: pointer;
+    margin-bottom: 20px;
+">Sair</button>
     <h1>Sistema de Votação de Ideias</h1>
 
     <div class="menu">

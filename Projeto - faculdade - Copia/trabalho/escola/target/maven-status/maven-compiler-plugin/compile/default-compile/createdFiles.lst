@@ -1,9 +1,12 @@
 controller\IdeiaController.class
+service\UsuarioService.class
 controller\LoginController.class
 model\Ideia.class
+service\VotacaoService.class
 controller\UsuarioController.class
 dao\Conexao.class
 dao\IdeiaDAO.class
 controller\VotacaoController.class
 dao\UsuarioDAO.class
+service\IdeiaService.class
 model\Usuario.class
