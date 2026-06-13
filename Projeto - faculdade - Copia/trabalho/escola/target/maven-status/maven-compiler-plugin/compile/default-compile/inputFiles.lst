@@ -1,3 +1,6 @@
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\api\AuthApiController.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\api\IdeiaApiController.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\api\VotacaoApiController.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\controller\IdeiaController.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\controller\LoginController.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\controller\UsuarioController.java
@@ -5,8 +8,13 @@ C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\c
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dao\Conexao.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dao\IdeiaDAO.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dao\UsuarioDAO.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dto\ComentarioDTO.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dto\LoginDTO.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\dto\VotoDTO.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\model\Ideia.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\model\Usuario.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\security\JwtFilter.java
+C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\security\JwtUtil.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\service\IdeiaService.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\service\UsuarioService.java
 C:\Users\W10\Desktop\Projeto - faculdade - Copia\trabalho\escola\src\main\java\service\VotacaoService.java

@@ -7,4 +7,14 @@
 
     <display-name>escola</display-name>
 
+    <filter>
+        <filter-name>JwtFilter</filter-name>
+        <filter-class>security.JwtFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>JwtFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
