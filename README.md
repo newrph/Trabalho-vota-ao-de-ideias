@@ -48,7 +48,7 @@ Todas as rotas da API são protegidas por JWT, exceto o endpoint de autenticaç�
 
 ---
 
-# Estrutura do Projeto
+Estrutura do Projeto
 
 src
 └── main
@@ -96,7 +96,6 @@ src
 ├── votos.jsp
 │
 └── WEB-INF
-
 ---
 
 # Funcionalidades
