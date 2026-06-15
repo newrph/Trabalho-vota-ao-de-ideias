@@ -2,62 +2,100 @@
 
 ## Sobre o Projeto
 
-O Sistema de Votação de Ideias é uma aplicação web desenvolvida utilizando Java Web com JSP, Servlets e MySQL. O objetivo principal do sistema é permitir que usuários cadastrem ideias e realizem votações nas propostas consideradas mais relevantes.
+O Sistema de Votação de Ideias é uma aplicação web desenvolvida em Java utilizando JSP, Servlets, MySQL e uma API REST protegida por JWT.
+
+O sistema permite que usuários realizem login, cadastrem ideias, votem em propostas e interajam por meio de comentários. A aplicação utiliza arquitetura MVC para as páginas web e disponibiliza endpoints REST para integração com aplicações externas ou front-ends modernos.
 
 ---
 
 # Tecnologias Utilizadas
 
-- Java
-- JSP
-- Servlet
-- HTML5
-- CSS3
-- Maven
-- MySQL
-- XAMPP
-- Apache Tomcat
+* Java 17+
+* JSP
+* Servlet
+* Maven
+* MySQL
+* XAMPP
+* Apache Tomcat
+* JWT (JSON Web Token)
+* Gson
+* HTML5
+* CSS3
 
 ---
 
 # Arquitetura do Sistema
 
-O sistema utiliza o padrão MVC:
+A aplicação utiliza dois modelos de acesso:
 
-- Model → Banco de dados
-- View → JSP
-- Controller → Servlets
+## Interface Web (MVC)
+
+Model → Banco de Dados
+
+View → JSP
+
+Controller → Servlets
 
 Fluxo:
 
 Usuário → JSP → Controller → Banco MySQL
 
+## API REST
+
+Cliente → API REST → Service → Banco MySQL
+
+Todas as rotas da API são protegidas por JWT, exceto o endpoint de autenticação.
+
 ---
 
 # Estrutura do Projeto
 
-```text
 src
- └── main
-      ├── java
-      │     ├── controller
-      │     │      ├── IdeiaController.java
-      │     │      ├── LoginController.java
-      │     │      └── VotacaoController.java
-      │     │
-      │     └── dao
-      │            └── Conexao.java
-      │
-      └── webapp
-            ├── css
-            │     └── style.css
-            │
-            ├── login.jsp
-            ├── inicio.jsp
-            ├── ideias.jsp
-            ├── votos.jsp
-            └── WEB-INF
-```
+└── main
+├── java
+│
+├── api
+│ ├── AuthApiController.java
+│ ├── IdeiaApiController.java
+│ └── VotacaoApiController.java
+│
+├── controller
+│ ├── IdeiaController.java
+│ ├── LoginController.java
+│ └── VotacaoController.java
+│
+├── dao
+│ └── Conexao.java
+│
+├── dto
+│ ├── LoginDTO.java
+│ ├── VotoDTO.java
+│ └── ComentarioDTO.java
+│
+├── model
+│ ├── Usuario.java
+│ ├── Ideia.java
+│ └── Voto.java
+│
+├── service
+│ ├── UsuarioService.java
+│ ├── IdeiaService.java
+│ └── VotacaoService.java
+│
+└── security
+├── JwtUtil.java
+└── JwtFilter.java
+
+└── webapp
+├── css
+│ └── style.css
+│
+├── inicio.jsp
+├── login.jsp
+├── ideias.jsp
+├── votos.jsp
+│
+└── WEB-INF
 
 ---
 
@@ -65,125 +103,276 @@ src
 
 ## Login
 
-Permite acesso ao sistema através de email e senha.
+Permite autenticação através de:
+
+* Email
+* Senha
+
+Após autenticação pela API é gerado um Token JWT.
+
+---
 
 ## Cadastro de Ideias
 
 Usuários podem cadastrar:
-- título
-- descrição
 
-As informações são salvas no banco de dados.
+* Título
+* Descrição
 
-## Sistema de Votação
-
-Usuários podem votar nas ideias cadastradas.
+As informações são persistidas no banco MySQL.
 
 ---
 
-# Controllers
+## Sistema de Votação
 
-## IdeiaController
+Usuários autenticados podem:
 
-Responsável por:
-- receber dados do formulário
-- salvar ideias
-- conectar ao banco
+* Visualizar ideias
+* Registrar votos
+* Participar do processo de seleção
 
-## VotacaoController
+---
 
-Responsável por:
-- registrar votos
-- relacionar ideias e usuários
+## Sistema de Comentários
 
-## LoginController
+Usuários autenticados podem comentar ideias cadastradas.
 
-Responsável por:
-- validar login
-- controlar acesso
+---
+
+# API REST
+
+## Autenticação
+
+### Login
+
+POST
+
+/api/auth/login
+
+Request:
+
+```json
+{
+  "email": "usuario@email.com",
+  "senha": "123456"
+}
+```
+
+Response:
+
+```json
+{
+  "token": "jwt-token",
+  "usuario": "Nome do Usuário"
+}
+```
+
+---
+
+## Ideias
+
+### Criar Ideia
+
+POST
+
+/api/ideias
+
+Header:
+
+Authorization: Bearer TOKEN
+
+Request:
+
+```json
+{
+  "titulo": "Nova Ideia",
+  "descricao": "Descrição da ideia"
+}
+```
+
+Response:
+
+```json
+{
+  "mensagem": "Ideia criada"
+}
+```
+
+---
+
+## Votação
+
+### Registrar Voto
+
+POST
+
+/api/votacao/voto
+
+Header:
+
+Authorization: Bearer TOKEN
+
+Request:
+
+```json
+{
+  "ideiaId": 1,
+  "usuarioId": 2
+}
+```
+
+Response:
+
+```json
+{
+  "mensagem": "Voto registrado"
+}
+```
+
+---
+
+## Comentários
+
+### Registrar Comentário
+
+POST
+
+/api/votacao/comentario
+
+Header:
+
+Authorization: Bearer TOKEN
+
+Request:
+
+```json
+{
+  "ideiaId": 1,
+  "usuarioId": 2,
+  "texto": "Excelente proposta."
+}
+```
+
+Response:
+
+```json
+{
+  "mensagem": "Comentário registrado"
+}
+```
+
+---
+
+# Segurança
+
+A API utiliza JWT (JSON Web Token).
+
+## Endpoints Públicos
+
+* /api/auth/login
+
+## Endpoints Protegidos
+
+* /api/ideias
+* /api/votacao/voto
+* /api/votacao/comentario
+
+O filtro JwtFilter intercepta todas as requisições para:
+
+/api/*
+
+e valida automaticamente o token enviado no cabeçalho Authorization.
+
+Exemplo:
+
+Authorization: Bearer eyJhbGciOiJIUzI1Ni...
 
 ---
 
 # Banco de Dados
 
-Banco utilizado:
+Banco:
 
-```sql
 escola
-```
 
 ## Tabela usuarios
 
-Armazena os usuários do sistema.
-
-| Campo | Função |
-|---|---|
-| id | identificador |
-| nome | nome do usuário |
-| email | login |
-| senha | senha |
-
----
+| Campo | Função        |
+| ----- | ------------- |
+| id    | Identificador |
+| nome  | Nome          |
+| email | Login         |
+| senha | Senha         |
 
 ## Tabela ideias
 
-Armazena ideias cadastradas.
-
-| Campo | Função |
-|---|---|
-| id | identificador |
-| titulo | título |
-| descricao | descrição |
-| usuario_id | autor |
-
----
+| Campo      | Função        |
+| ---------- | ------------- |
+| id         | Identificador |
+| titulo     | Título        |
+| descricao  | Descrição     |
+| usuario_id | Autor         |
 
 ## Tabela votos
 
-Armazena votos realizados.
-
-| Campo | Função |
-|---|---|
-| id | identificador |
-| usuario_id | usuário |
-| ideia_id | ideia votada |
+| Campo      | Função        |
+| ---------- | ------------- |
+| id         | Identificador |
+| usuario_id | Usuário       |
+| ideia_id   | Ideia votada  |
 
 ---
 
-# Fluxo do Sistema
+# Fluxo da Aplicação
+
+## Login
+
+Usuário
+↓
+AuthApiController
+↓
+JWT
+↓
+Acesso liberado
+
+---
 
 ## Cadastro de Ideia
 
-Usuário preenche formulário  
-↓  
-IdeiaController  
-↓  
+Usuário
+↓
+IdeiaApiController
+↓
+IdeiaService
+↓
 Banco MySQL
 
 ---
 
-## Processo de Votação
+## Registro de Voto
 
-Usuário clica em votar  
-↓  
-VotacaoController  
-↓  
+Usuário
+↓
+VotacaoApiController
+↓
+VotacaoService
+↓
 Banco MySQL
 
 ---
-
 
 # Como Executar
 
 ## 1. Iniciar XAMPP
 
 Ativar:
-- Apache
-- MySQL
+
+* Apache
+* MySQL
 
 ---
 
-## 2. Criar banco
+## 2. Criar Banco
 
 ```sql
 CREATE DATABASE escola;
@@ -191,7 +380,7 @@ CREATE DATABASE escola;
 
 ---
 
-## 3. Compilar projeto
+## 3. Compilar Projeto
 
 ```bash
 mvn clean package
@@ -199,38 +388,54 @@ mvn clean package
 
 ---
 
-## 4. Copiar WAR
+## 4. Gerar Arquivo WAR
+
+O Maven criará:
+
+target/escola.war
+
+---
+
+## 5. Implantar no Tomcat
 
 Copiar:
 
-```text
 target/escola.war
-```
 
 para:
 
-```text
 Tomcat/webapps
-```
 
 ---
 
-## 5. Iniciar Tomcat
+## 6. Iniciar Tomcat
 
-```text
+Windows:
+
+```bash
 startup.bat
 ```
 
+Linux:
+
+```bash
+./startup.sh
+```
+
 ---
 
-## 6. Acessar sistema
+## 7. Acessar Sistema
 
-```text
+Interface Web:
+
 http://localhost:8080/escola
-```
+
+API REST:
+
+http://localhost:8080/escola/api
 
 ---
 
 # Conclusão
 
-O projeto demonstra o funcionamento de uma aplicação Java Web utilizando MVC, JSP, Servlets e MySQL, permitindo compreender na prática o fluxo entre interface, lógica e banco de dados.
+O projeto demonstra a construção de uma aplicação Java Web completa utilizando JSP, Servlets, MySQL e API REST com autenticação JWT. A solução integra interface web tradicional e serviços REST seguros, aplicando conceitos de MVC, DTO, Service Layer, autenticação baseada em tokens e boas práticas de desenvolvimento corporativo.
