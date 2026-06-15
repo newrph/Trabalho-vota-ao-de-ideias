@@ -47,56 +47,53 @@ Cliente → API REST → Service → Banco MySQL
 Todas as rotas da API são protegidas por JWT, exceto o endpoint de autenticação.
 
 ---
+## Estrutura do Projeto
 
-Estrutura do Projeto
-
+```text
 src
 └── main
-├── java
-│
-├── api
-│ ├── AuthApiController.java
-│ ├── IdeiaApiController.java
-│ └── VotacaoApiController.java
-│
-├── controller
-│ ├── IdeiaController.java
-│ ├── LoginController.java
-│ └── VotacaoController.java
-│
-├── dao
-│ └── Conexao.java
-│
-├── dto
-│ ├── LoginDTO.java
-│ ├── VotoDTO.java
-│ └── ComentarioDTO.java
-│
-├── model
-│ ├── Usuario.java
-│ ├── Ideia.java
-│ └── Voto.java
-│
-├── service
-│ ├── UsuarioService.java
-│ ├── IdeiaService.java
-│ └── VotacaoService.java
-│
-└── security
-├── JwtUtil.java
-└── JwtFilter.java
-
-└── webapp
-├── css
-│ └── style.css
-│
-├── inicio.jsp
-├── login.jsp
-├── ideias.jsp
-├── votos.jsp
-│
-└── WEB-INF
----
+    ├── java
+    │   ├── api
+    │   │   ├── AuthApiController.java
+    │   │   ├── IdeiaApiController.java
+    │   │   └── VotacaoApiController.java
+    │   │
+    │   ├── controller
+    │   │   ├── IdeiaController.java
+    │   │   ├── LoginController.java
+    │   │   └── VotacaoController.java
+    │   │
+    │   ├── dao
+    │   │   └── Conexao.java
+    │   │
+    │   ├── dto
+    │   │   ├── LoginDTO.java
+    │   │   ├── VotoDTO.java
+    │   │   └── ComentarioDTO.java
+    │   │
+    │   ├── model
+    │   │   ├── Usuario.java
+    │   │   ├── Ideia.java
+    │   │   └── Voto.java
+    │   │
+    │   ├── service
+    │   │   ├── UsuarioService.java
+    │   │   ├── IdeiaService.java
+    │   │   └── VotacaoService.java
+    │   │
+    │   └── security
+    │       ├── JwtUtil.java
+    │       └── JwtFilter.java
+    │
+    └── webapp
+        ├── css
+        │   └── style.css
+        ├── inicio.jsp
+        ├── login.jsp
+        ├── ideias.jsp
+        ├── votos.jsp
+        └── WEB-INF
+```
 
 # Funcionalidades
 
