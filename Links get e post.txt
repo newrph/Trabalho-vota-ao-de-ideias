@@ -1,0 +1,16 @@
+Post:
+http://localhost:8080/escola/api/auth/login
+
+{
+  "email": "eu@eu",
+  "senha": "123"
+}
+
+
+Get:
+http://localhost:8080/escola/api/ideias
+
+{
+  "titulo": "Nova Ideia do Iann",
+  "descricao": "Testando o cadastro de ideias direto pela API REST."
+}
